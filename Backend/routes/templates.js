@@ -134,6 +134,14 @@ router.post(templatesPath + "/:id", function (req, res) {
             code: req.body.code,
             parameters: req.body.parameters
         });
+
+        if (!template.technology) {
+            return res.status(400).json(createResponse("Invalid technology"));
+        } else if (!template.name)  {
+            return res.status(400).json(createResponse("Invalid name"));
+        } else if (template.code === undefined)  {
+            return res.status(400).json(createResponse("Invalid code"));
+        }
         
         template.save(function (err) {
             if (err) {
