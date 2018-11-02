@@ -11,10 +11,37 @@ class App extends Component {
         super(props);
 
         this.state = {
-            technologies: [],
             isLogged: false,
             token: "",
-            user: ""
+            user: "",
+            technologies: ["Java", "React", "AngularJS", "CSS"],
+            templates: [
+                {
+                    technology: "React",
+                    name: "React Template 1"
+                }, {
+                    technology: "React",
+                    name: "React Template 2"
+                }, {
+                    technology: "Java",
+                    name: "Java Template 1"
+                }, {
+                    technology: "Java",
+                    name: "Java Template 2"
+                }, {
+                    technology: "AngularJS",
+                    name: "AngularJS Template 1"
+                }, {
+                    technology: "AngularJS",
+                    name: "AngularJS Template 2"
+                }, {
+                    technology: "CSS",
+                    name: "CSS Template 1"
+                }, {
+                    technology: "CSS",
+                    name: "CSS Template 2"
+                },
+            ]
         };
 
         this.tasksPath = "/api/templates";
@@ -173,6 +200,8 @@ class App extends Component {
                     login={this.login}
                     isLogged={this.state.isLogged}
                     user={this.state.user}
+                    technologies={this.state.technologies}
+                    templates={this.state.templates}
                 />
             </div>
         );

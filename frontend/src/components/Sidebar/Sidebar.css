@@ -1,0 +1,40 @@
+.sidebar {
+    color: white;
+    width: 300px;
+    background-color: #555555;
+    height: 700px;
+    float: left;
+}
+
+.sidebar-title {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.technologies {
+    margin-left: 20px;
+}
+
+.technology {
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.arrow {
+    height: 14px;
+    margin-top: 5px;
+    margin-right: 6px;
+}
+
+.down {
+    transform: rotate(90deg);
+}
+
+.templates {
+    margin-left: 30px;
+}
+
+.greyed {
+    color: #888888;
+}

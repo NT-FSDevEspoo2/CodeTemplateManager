@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
+import Home from './Home';
 
 export default class Main extends React.Component {
 
@@ -21,7 +22,11 @@ export default class Main extends React.Component {
 
                 <Route exact path="/home" render={() => (
                     this.props.isLogged ? (
-                        <div>You are logged in as {this.props.user}</div>
+                        <Home
+                            user={this.props.user}
+                            technologies={this.props.technologies}
+                            templates={this.props.templates}
+                        />
                     ) : (
                             <Redirect to="/"></Redirect>
                         )
