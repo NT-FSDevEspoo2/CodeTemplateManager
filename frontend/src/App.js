@@ -18,7 +18,8 @@ class App extends Component {
             templates: [
                 {
                     technology: "React",
-                    name: "React Template 1"
+                    name: "React Template 1",
+                    code: "// Get generated code based on template.\nrouter.get(templatesPath + \"/:id/generate\", function (req, res) {\n    let id = req.params.id;\n    let parameters = req.body.parameters;\n    \n    Template.findOne({_id: id}, function (err, template) {\n        if (err) {\n            return res.status(404).json(createResponse(\"Not Found\"));\n        }\n        \n        if (template.creator !== req.user) {\n            return res.status(403).json(createResponse(\"Not Allowed\"));\n        }\n        \n        let generatedCode = codeGenerator.generateCode(template, parameters);\n    \n        return res.status(200).json(generatedCode);\n    });\n});"
                 }, {
                     technology: "React",
                     name: "React Template 2"

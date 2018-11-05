@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Sidebar from './Sidebar/Sidebar';
-import Template from './Template';
+import Template from './Template/Template';
 
 export default class Home extends React.Component {
 
