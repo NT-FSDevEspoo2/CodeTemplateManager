@@ -75,7 +75,7 @@ export default class Sidebar extends React.Component {
 
         return (
             <div className="sidebar">
-                <div className="sidebar-title">Code Templates</div>
+                <div className="sidebar-title" onClick={() => this.props.selectTemplate(null)}>Code Templates</div>
 
                 <div className="technologies">
                     {technologyList}
