@@ -26,6 +26,7 @@ export default class Home extends React.Component {
                     technologies={this.props.technologies}
                     templates={this.props.templates}
                     selectTemplate={this.selectTemplate}
+                    selectedTemplate={this.state.selectedTemplate}
                 />
                 <div>You are logged in as {this.props.user}</div>
 

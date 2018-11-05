@@ -56,8 +56,17 @@ export default class Sidebar extends React.Component {
                             return (null);
                         }
 
+                        let templateStyle;
+                        if (this.props.selectedTemplate) {
+                            if (template.name === this.props.selectedTemplate.name) {
+                                templateStyle = {
+                                    color: "#3a85ff"
+                                };
+                            }
+                        }
+
                         return (
-                            <div key={template.name} onClick={() => this.props.selectTemplate(template)}>{template.name}</div>
+                            <div key={template.name} style={templateStyle} onClick={() => this.props.selectTemplate(template)}>{template.name}</div>
                         )
                     });
                 } else {
