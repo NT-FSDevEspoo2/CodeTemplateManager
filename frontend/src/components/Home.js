@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Sidebar from './Sidebar/Sidebar';
+import Template from './Template';
 
 export default class Home extends React.Component {
 
@@ -19,14 +20,6 @@ export default class Home extends React.Component {
     }
 
     render() {
-        let template;
-
-        if (this.state.selectedTemplate) {
-            template = <div>Selected template: {this.state.selectedTemplate.name}</div>;
-        } else {
-            template = <div>Selected template: None</div>;
-        }
-
         return (
             <div>
                 <Sidebar
@@ -36,7 +29,9 @@ export default class Home extends React.Component {
                 />
                 <div>You are logged in as {this.props.user}</div>
 
-                {template}
+                <Template
+                    selectedTemplate={this.state.selectedTemplate}
+                />
             </div>
         );
     }
