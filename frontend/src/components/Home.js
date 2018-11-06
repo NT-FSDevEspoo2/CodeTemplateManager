@@ -9,14 +9,42 @@ export default class Home extends React.Component {
         super(props);
 
         this.state = {
-            selectedTemplate: null
+            selectedTemplate: null,
+            formMode: false
         };
     }
 
     selectTemplate = (template) => {
         this.setState({
-            selectedTemplate: template
+            selectedTemplate: template,
+            formMode: false
         });
+    }
+
+    setFormMode = (mode, template) => {
+        if (!this.state.formMode) {
+            this.setState({
+                formMode: mode,
+                selectedTemplate: template
+            });
+        }
+    }
+
+    createTemplate = (template) => {
+        // Create template
+    }
+
+    editTemplate = (template) => {
+        // Edit template
+    }
+
+    removeTemplate = (id) => {
+        if (this.state.formMode) {
+            return;
+        }
+
+        console.log("Confirmed remove action");
+        // Remove template
     }
 
     render() {
@@ -27,11 +55,18 @@ export default class Home extends React.Component {
                     templates={this.props.templates}
                     selectTemplate={this.selectTemplate}
                     selectedTemplate={this.state.selectedTemplate}
+                    setFormMode={this.setFormMode}
+                    formMode={this.state.formMode}
+                    removeTemplate={this.removeTemplate}
                 />
                 <div>You are logged in as {this.props.user}</div>
 
                 <Template
+                    selectTemplate={this.selectTemplate}
                     selectedTemplate={this.state.selectedTemplate}
+                    formMode={this.state.formMode}
+                    createTemplate={this.createTemplate}
+                    editTemplate={this.editTemplate}
                 />
             </div>
         );

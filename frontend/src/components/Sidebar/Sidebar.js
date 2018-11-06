@@ -82,10 +82,46 @@ export default class Sidebar extends React.Component {
             )
         });
 
+        let formModeButtonClassName = "sidebar-control-button";
+
+        if (this.props.formMode) {
+            formModeButtonClassName += " sidebar-control-button-disabled";
+        }
+
+        let editButton = null;
+        let removeButton = null;
+        if (this.props.selectedTemplate) {
+            editButton = (
+                <div className={formModeButtonClassName}
+                    onClick={() => this.props.setFormMode(true, this.props.selectedTemplate)}
+                >
+                    <span className="sidebar-control-button-text unselectable">Edit</span>
+                </div>
+            );
+
+            removeButton = (
+                <div className={formModeButtonClassName}
+                    onClick={() => this.props.removeTemplate(this.props.selectedTemplate._id)}
+                >
+                    <span className="sidebar-control-button-text unselectable">Remove</span>
+                </div>
+            );
+        }
+
         return (
             <div className="sidebar">
                 <div className="sidebar-title" onClick={() => this.props.selectTemplate(null)}>Code Templates</div>
 
+                <div className="sidebar-controls">
+                    <div className={formModeButtonClassName}
+                        disabled={this.props.formMode} 
+                        onClick={() => this.props.setFormMode(true, null)}
+                    >
+                        <span className="sidebar-control-button-text unselectable">Create</span>
+                    </div>
+                    {editButton}
+                    {removeButton}
+                </div>
                 <div className="technologies">
                     {technologyList}
                 </div>

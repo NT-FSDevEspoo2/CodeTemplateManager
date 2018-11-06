@@ -1,3 +1,10 @@
 .code {
     font-size: 12px;
+    width: 700px;
+    height: 400px;
+}
+
+.code-textarea {
+    margin-top: 13px;
+    margin-left: 3px;
 }
