@@ -80,7 +80,10 @@ router.get("/technologies", function (req, res) {
 
         let technologyNames = [];
         for (let i = 0; i < technologies.length; i++) {
-            technologyNames.push(technologies[i].technology);
+            let technology = technologies[i].technology;
+            if (!technologyNames.includes(technology)) {
+                technologyNames.push(technology);
+            }
         }
         
         return res.status(200).json(technologyNames);
