@@ -32,10 +32,18 @@ export default class Home extends React.Component {
 
     createTemplate = (template) => {
         // Create template
+
+        this.setState({
+            formMode: false
+        });
     }
 
     editTemplate = (template) => {
         // Edit template
+
+        this.setState({
+            formMode: false
+        });
     }
 
     removeTemplate = (id) => {
