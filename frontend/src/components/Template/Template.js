@@ -9,13 +9,15 @@ export default class Template extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        this.defaultState = {
             id: "",
             name: "",
             technology: "",
             code: "",
             parameters: []
         }
+
+        this.state = this.defaultState;
     }
 
     static getDerivedStateFromProps(newProps, previousState) {
@@ -30,6 +32,17 @@ export default class Template extends React.Component {
                 technology: selectedTemplate.technology,
                 code: selectedTemplate.code,
                 parameters: selectedTemplate.parameters
+            }
+        }
+
+        if (!selectedTemplate && previousState.id) {
+            console.log("Setting default values");
+            return {
+                id: "",
+                name: "",
+                technology: "",
+                code: "",
+                parameters: []
             }
         }
 
@@ -65,6 +78,14 @@ export default class Template extends React.Component {
             console.log(template);
             this.props.createTemplate(template);
         }
+
+        this.setState(this.defaultState);
+    }
+
+    cancelAction = () => {
+        this.props.selectTemplate(this.props.selectedTemplate);
+
+        this.setState(this.defaultState);
     }
 
     render() {
@@ -97,7 +118,7 @@ export default class Template extends React.Component {
             formControls = (
                 <div>
                     <input type="button" value={confirmButtonValue} onClick={() => this.confirmAction()}/>
-                    <input type="button" value="Cancel" onClick={() => this.props.selectTemplate(this.props.selectedTemplate)}/>
+                    <input type="button" value="Cancel" onClick={this.cancelAction}/>
                 </div>
             );
         }
