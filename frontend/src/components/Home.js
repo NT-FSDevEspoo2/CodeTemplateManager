@@ -31,19 +31,23 @@ export default class Home extends React.Component {
     }
 
     createTemplate = (template) => {
-        // Create template
+        this.props.createTemplate(template);
 
         this.setState({
             formMode: false
         });
+
+        this.selectTemplate(template);
     }
 
     editTemplate = (template) => {
-        // Edit template
+        this.props.editTemplate(template);
 
         this.setState({
             formMode: false
         });
+
+        this.selectTemplate(template);
     }
 
     removeTemplate = (id) => {
@@ -52,7 +56,9 @@ export default class Home extends React.Component {
         }
 
         console.log("Confirmed remove action");
-        // Remove template
+        this.props.removeTemplate(id);
+
+        this.selectTemplate(null);
     }
 
     render() {

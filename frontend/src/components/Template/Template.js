@@ -24,10 +24,10 @@ export default class Template extends React.Component {
         let selectedTemplate = newProps.selectedTemplate;
         console.log(newProps);
         console.log(previousState);
-        if (selectedTemplate && previousState.id !== selectedTemplate._id) {
+        if (selectedTemplate && previousState.id !== selectedTemplate.id) {
             console.log("Set state name: " + selectedTemplate.name);
             return {
-                id: selectedTemplate._id,
+                id: selectedTemplate.id,
                 name: selectedTemplate.name,
                 technology: selectedTemplate.technology,
                 code: selectedTemplate.code,
@@ -61,8 +61,9 @@ export default class Template extends React.Component {
     confirmAction = () => {
         // Create template object
         let template = {
+            id: this.state.id,
             name: this.state.name,
-            technology: "",
+            technology: "None",
             code: this.state.code,
             parameters: []
         };

@@ -220,6 +220,71 @@ class App extends Component {
         });
     }
 
+    createTemplate = (template) => {
+        let requestObject = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "token": this.state.token
+            },
+            body: JSON.stringify(template)
+        }
+        fetch(this.templatesPath, requestObject).then((response) => {
+            if (response.ok) {
+                this.getTemplates();
+                this.getTechnologies();
+            } else {
+                console.error("Error: " + response.status);
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    editTemplate = (template) => {
+        let requestObject = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "token": this.state.token
+            },
+            body: JSON.stringify(template)
+        }
+        fetch(this.templatesPath + "/" + template.id, requestObject).then((response) => {
+            if (response.ok) {
+                this.getTemplates();
+                this.getTechnologies();
+            } else {
+                console.error("Error: " + response.status);
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
+    removeTemplate = (id) => {
+        let requestObject = {
+            method: "DELETE",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "token": this.state.token
+            }
+        }
+        fetch(this.templatesPath + "/" + id, requestObject).then((response) => {
+            if (response.ok) {
+                this.getTemplates();
+                this.getTechnologies();
+            } else {
+                console.error("Error: " + response.status);
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
+
     render() {
         return (
             <div className="App">
@@ -230,6 +295,9 @@ class App extends Component {
                     user={this.state.user}
                     technologies={this.state.technologies}
                     templates={this.state.templates}
+                    createTemplate={this.createTemplate}
+                    editTemplate={this.editTemplate}
+                    removeTemplate={this.removeTemplate}
                 />
             </div>
         );
