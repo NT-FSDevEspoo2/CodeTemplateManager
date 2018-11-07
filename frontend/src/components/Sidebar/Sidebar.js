@@ -114,7 +114,6 @@ export default class Sidebar extends React.Component {
 
                 <div className="sidebar-controls">
                     <div className={formModeButtonClassName}
-                        disabled={this.props.formMode} 
                         onClick={() => this.props.setFormMode(true, null)}
                     >
                         <span className="sidebar-control-button-text unselectable">Create</span>
