@@ -15,8 +15,6 @@ const initialState = {
 }
 
 function templateReducer(state = initialState, action) {
-    console.log(action.type);
-
     let newState = {};
     switch (action.type) {
         case GET_TECHNOLOGIES_SUCCESS:

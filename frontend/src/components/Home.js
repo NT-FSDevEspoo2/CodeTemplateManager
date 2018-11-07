@@ -58,7 +58,6 @@ class Home extends React.Component {
             return;
         }
 
-        console.log("Confirmed remove action");
         this.props.dispatch(removeTemplate(id, this.props.token));
 
         this.selectTemplate(null);

@@ -22,10 +22,7 @@ export default class Template extends React.Component {
 
     static getDerivedStateFromProps(newProps, previousState) {
         let selectedTemplate = newProps.selectedTemplate;
-        console.log(newProps);
-        console.log(previousState);
         if (selectedTemplate && previousState.id !== selectedTemplate._id) {
-            console.log("Set state name: " + selectedTemplate.name);
             return {
                 id: selectedTemplate._id,
                 name: selectedTemplate.name,
@@ -36,7 +33,6 @@ export default class Template extends React.Component {
         }
 
         if (!selectedTemplate && previousState.id) {
-            console.log("Setting default values");
             return {
                 id: "",
                 name: "",
@@ -71,12 +67,8 @@ export default class Template extends React.Component {
         if (this.props.selectedTemplate) {
             template["id"] = this.props.selectedTemplate._id;
 
-            console.log("Confirmed edit action");
-            console.log(template);
             this.props.editTemplate(template);
         } else {
-            console.log("Confirmed create action");
-            console.log(template);
             this.props.createTemplate(template);
         }
 
@@ -100,8 +92,6 @@ export default class Template extends React.Component {
         let templateTechnologyElement = <span>Technology: {selectedTemplateTechnology}</span>;
 
         let code = this.state.code;
-
-        console.log("Technology: " + this.state.technology);
 
         let codeElement = null;
         if (selectedTemplate && selectedTemplate.code) {
