@@ -24,10 +24,10 @@ export default class Template extends React.Component {
         let selectedTemplate = newProps.selectedTemplate;
         console.log(newProps);
         console.log(previousState);
-        if (selectedTemplate && previousState.id !== selectedTemplate.id) {
+        if (selectedTemplate && previousState.id !== selectedTemplate._id) {
             console.log("Set state name: " + selectedTemplate.name);
             return {
-                id: selectedTemplate.id,
+                id: selectedTemplate._id,
                 name: selectedTemplate.name,
                 technology: selectedTemplate.technology,
                 code: selectedTemplate.code,
