@@ -1,10 +1,11 @@
 import React from 'react';
 
 import './Sidebar.css';
-
 import Arrow from './arrow.png';
 
-export default class Sidebar extends React.Component {
+import { connect } from 'react-redux';
+
+class Sidebar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,6 +39,10 @@ export default class Sidebar extends React.Component {
     }
 
     render() {
+        if (!this.props.technologies) {
+            return null;
+        }
+
         let technologyList = this.props.technologies.map((technology) => {
             let selected = this.state.selectedTechnologies.includes(technology);
 
@@ -128,3 +133,12 @@ export default class Sidebar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        technologies: state.templates.technologies,
+        templates: state.templates.templates
+    }
+}
+
+export default connect(mapStateToProps)(Sidebar);

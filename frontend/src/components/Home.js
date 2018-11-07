@@ -4,6 +4,8 @@ import Sidebar from './Sidebar/Sidebar';
 import Template from './Template/Template';
 import { connect } from 'react-redux';
 
+import { createTemplate, editTemplate, removeTemplate } from '../actions/templateActions';
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -32,7 +34,7 @@ class Home extends React.Component {
     }
 
     createTemplate = (template) => {
-        this.props.createTemplate(template);
+        this.props.dispatch(createTemplate(template, this.props.token));
 
         this.setState({
             formMode: false
@@ -42,7 +44,7 @@ class Home extends React.Component {
     }
 
     editTemplate = (template) => {
-        this.props.editTemplate(template);
+        this.props.dispatch(editTemplate(template, this.props.token));
 
         this.setState({
             formMode: false
@@ -57,7 +59,7 @@ class Home extends React.Component {
         }
 
         console.log("Confirmed remove action");
-        this.props.removeTemplate(id);
+        this.props.dispatch(removeTemplate(id, this.props.token));
 
         this.selectTemplate(null);
     }
@@ -66,8 +68,6 @@ class Home extends React.Component {
         return (
             <div>
                 <Sidebar
-                    technologies={this.props.technologies}
-                    templates={this.props.templates}
                     selectTemplate={this.selectTemplate}
                     selectedTemplate={this.state.selectedTemplate}
                     setFormMode={this.setFormMode}
@@ -90,7 +90,8 @@ class Home extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        username: state.login.username
+        username: state.login.username,
+        token: state.login.token
     }
 }
 

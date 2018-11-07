@@ -88,11 +88,11 @@ export function onLogout(token) {
                 dispatch(logoutFailed("Not logged in"));
             } else {
                 console.error(response);
-                dispatch(logoutFailed(response));
+                dispatch(logoutFailed("Logout failed"));
             }
         }).catch((error) => {
             console.error(error);
-            dispatch(logoutFailed(error));
+            dispatch(logoutFailed("Logout failed"));
         });
     }
 }
