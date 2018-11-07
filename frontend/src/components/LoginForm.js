@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { Form, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
-export default class LoginForm extends React.Component {
+import { onLogin, onRegister } from '../actions/loginActions';
+
+class LoginForm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,9 +41,9 @@ export default class LoginForm extends React.Component {
         };
 
         if (event.target.name === "register") {
-            this.props.register(user);
+            this.props.dispatch(onRegister(user));
         } else {
-            this.props.login(user);
+            this.props.dispatch(onLogin(user));
         }
 
         this.setState(this.defaultState);
@@ -73,3 +76,5 @@ export default class LoginForm extends React.Component {
         );
     }
 }
+
+export default connect()(LoginForm);

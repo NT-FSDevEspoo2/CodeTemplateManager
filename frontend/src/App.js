@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Main from './components/Main';
 
@@ -11,9 +12,6 @@ class App extends Component {
         super(props);
 
         this.state = {
-            isLogged: false,
-            token: "",
-            user: "",
             technologies: [],
             templates: []
         };
@@ -22,151 +20,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-        let isLogged = sessionStorage.getItem("isLogged") === "true";
-        let token = sessionStorage.getItem("token");
-        let user = sessionStorage.getItem("user");
-
-        this.setState({
-            user: user
-        });
-
-        if (isLogged) {
-            this.checkToken(token);
-
-            this.getTechnologies(token);
-            this.getTemplates(token);
+        if (this.props.isLogged) {
+            this.getTechnologies(this.props.token);
+            this.getTemplates(this.props.token);
         }
-    }
-
-    setSessionStorage = (isLogged, token, user) => {
-        sessionStorage.setItem("isLogged", isLogged);
-        sessionStorage.setItem("token", token);
-
-        if (user) {
-            sessionStorage.setItem("user", user);
-        }
-    }
-
-    register = (user) => {
-        let requestObject = {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user)
-        }
-        fetch("/register", requestObject).then((response) => {
-            if (response.ok) {
-                alert("Registered");
-            } else if (response.status === 409) {
-                alert("Username already exists");
-            } else if (response.status === 403) {
-                console.log(response);
-                alert(response.message);
-            } else {
-                console.error("Error: " + response.status);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
-
-    login = (user) => {
-        let requestObject = {
-            method: "POST",
-            mode: "cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(user)
-        }
-        fetch("/login", requestObject).then((response) => {
-            if (response.ok) {
-                response.json().then((data) => {
-                    this.setState({
-                        isLogged: true,
-                        token: data.token,
-                        user: user.username
-                    });
-
-                    this.setSessionStorage(true, data.token, user.username);
-
-                    this.getTechnologies(data.token);
-                    this.getTemplates(data.token);
-                });
-            } else if (response.status === 403) {
-                alert("Wrong username or password");
-            } else {
-                console.error("Error: " + response.status);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
-
-    logout = () => {
-        let requestObject = {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                "token": this.state.token
-            }
-        }
-        fetch("/logout", requestObject).then((response) => {
-            if (response.ok) {
-                this.setState({
-                    isLogged: false,
-                    token: ""
-                });
-
-                this.setSessionStorage(false, "", "");
-            } else if (response.status === 404) {
-                alert("Not found");
-            } else {
-                console.error("Error: " + response.status);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    }
-
-    checkToken = (token) => {
-        if (!token) {
-            token = this.state.token;
-        }
-
-        let requestObject = {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                "token": token
-            }
-        }
-        fetch("/checktoken", requestObject).then((response) => {
-            if (response.ok) {
-                this.setState({
-                    isLogged: true,
-                    token: token
-                });
-
-                this.setSessionStorage(true, this.state.token);
-            } else if (response.status === 404) {
-                this.setState({
-                    isLogged: false,
-                    token: ""
-                });
-
-                this.setSessionStorage(false, "", "");
-            } else {
-                console.error("Error: " + response.status);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
     }
 
     getTechnologies = (token) => {
         if (!token) {
-            token = this.state.token;
+            token = this.props.token;
         }
 
         let requestObject = {
@@ -194,7 +56,7 @@ class App extends Component {
 
     getTemplates = (token) => {
         if (!token) {
-            token = this.state.token;
+            token = this.props.token;
         }
 
         let requestObject = {
@@ -226,7 +88,7 @@ class App extends Component {
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
-                "token": this.state.token
+                "token": this.props.token
             },
             body: JSON.stringify(template)
         }
@@ -248,7 +110,7 @@ class App extends Component {
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
-                "token": this.state.token
+                "token": this.props.token
             },
             body: JSON.stringify(template)
         }
@@ -270,7 +132,7 @@ class App extends Component {
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",
-                "token": this.state.token
+                "token": this.props.token
             }
         }
         fetch(this.templatesPath + "/" + id, requestObject).then((response) => {
@@ -289,10 +151,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Main
-                    register={this.register}
-                    login={this.login}
-                    isLogged={this.state.isLogged}
-                    user={this.state.user}
+                    isLogged={this.props.isLogged}
                     technologies={this.state.technologies}
                     templates={this.state.templates}
                     createTemplate={this.createTemplate}
@@ -304,4 +163,12 @@ class App extends Component {
     }
 }
 
-export default withRouter(App);
+const mapStateToProps = (state) => {
+    return {
+        isLogged: state.login.isLogged,
+        username: state.login.username,
+        token: state.login.token
+    }
+}
+
+export default withRouter(connect(mapStateToProps)(App));

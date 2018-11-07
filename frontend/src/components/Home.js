@@ -2,8 +2,9 @@ import React from 'react';
 
 import Sidebar from './Sidebar/Sidebar';
 import Template from './Template/Template';
+import { connect } from 'react-redux';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 
     constructor(props) {
         super(props);
@@ -73,7 +74,7 @@ export default class Home extends React.Component {
                     formMode={this.state.formMode}
                     removeTemplate={this.removeTemplate}
                 />
-                <div>You are logged in as {this.props.user}</div>
+                <div>You are logged in as {this.props.username}</div>
 
                 <Template
                     selectTemplate={this.selectTemplate}
@@ -86,3 +87,11 @@ export default class Home extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        username: state.login.username
+    }
+}
+
+export default connect(mapStateToProps)(Home);

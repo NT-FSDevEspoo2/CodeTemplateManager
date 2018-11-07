@@ -12,8 +12,6 @@ export default class Main extends React.Component {
                 <Route exact path="/" render={() => (
                     !this.props.isLogged ? (
                         <LoginForm
-                            register={this.props.register}
-                            login={this.props.login}
                         />
                     ) : (
                             <Redirect to="/home"></Redirect>
@@ -23,7 +21,6 @@ export default class Main extends React.Component {
                 <Route exact path="/home" render={() => (
                     this.props.isLogged ? (
                         <Home
-                            user={this.props.user}
                             technologies={this.props.technologies}
                             templates={this.props.templates}
                             createTemplate={this.props.createTemplate}
