@@ -63,7 +63,7 @@ export default class Template extends React.Component {
         let template = {
             id: this.state.id,
             name: this.state.name,
-            technology: "None",
+            technology: this.state.technology,
             code: this.state.code,
             parameters: []
         };
@@ -91,12 +91,17 @@ export default class Template extends React.Component {
 
     render() {
         let selectedTemplate = this.props.selectedTemplate;
+        
         let selectedTemplateName = selectedTemplate ? selectedTemplate.name : "None";
-        let selectedTemplateNameForForm = this.state.name;
+
+        let selectedTemplateTechnology = selectedTemplate ? selectedTemplate.technology : "";
 
         let templateNameElement = <span>Selected template: {selectedTemplateName}</span>;
+        let templateTechnologyElement = <span>Technology: {selectedTemplateTechnology}</span>;
 
         let code = this.state.code;
+
+        console.log("Technology: " + this.state.technology);
 
         let codeElement = null;
         if (selectedTemplate && selectedTemplate.code) {
@@ -108,7 +113,13 @@ export default class Template extends React.Component {
         if (this.props.formMode) {
             templateNameElement = (
                 <span>
-                    Selected template: <input type="text" name="name" onChange={this.onChange} value={selectedTemplateNameForForm}/>
+                    Selected template: <input type="text" name="name" onChange={this.onChange} value={this.state.name}/>
+                </span>
+            );
+
+            templateTechnologyElement = (
+                <span>
+                    Technology: <input type="text" name="technology" onChange={this.onChange} value={this.state.technology}/>
                 </span>
             );
 
@@ -127,6 +138,7 @@ export default class Template extends React.Component {
         let template = (
             <div>
                 <div>{templateNameElement}</div>
+                <div>{templateTechnologyElement}</div>
                 <div>{codeElement}</div>
                 <div>{formControls}</div>
             </div>
