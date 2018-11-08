@@ -38,6 +38,20 @@ class Sidebar extends React.Component {
         });
     }
 
+    removeTemplate = () => {
+        if (!this.state.confirmRemoveMode) {
+            this.setState({
+                confirmRemoveMode: true
+            });
+        } else {
+            this.props.removeTemplate(this.props.selectedTemplate._id)
+
+            this.setState({
+                confirmRemoveMode: false
+            });
+        }
+    }
+
     render() {
         if (!this.props.technologies) {
             return null;
@@ -104,11 +118,22 @@ class Sidebar extends React.Component {
                 </button>
             );
 
+            let confirmModeStyle = null;
+            
+            if (this.state.confirmRemoveMode) {
+                confirmModeStyle = {
+                    backgroundColor: "red"
+                }
+            }
+
             removeButton = (
-                <button className={formModeButtonClassName}
-                    onClick={() => this.props.removeTemplate(this.props.selectedTemplate._id)}
+                <button 
+                    className={formModeButtonClassName} 
+                    style={confirmModeStyle}
+                    onClick={() => this.removeTemplate()}
+                    onMouseLeave={() => this.setState({confirmRemoveMode: false})}
                 >
-                    <span className="sidebar-control-button-text unselectable">Remove</span>
+                    <span className="sidebar-control-button-text unselectable">{this.state.confirmRemoveMode ? "Confirm Remove" : "Remove"}</span>
                 </button>
             );
         }
