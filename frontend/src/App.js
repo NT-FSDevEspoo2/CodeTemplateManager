@@ -11,6 +11,12 @@ import { initRequestCompleted } from './actions/loginActions';
 
 class App extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
     componentDidMount() {
         if (this.props.isLogged) {
             this.props.dispatch(getTechnologies(this.props.token));
@@ -24,6 +30,8 @@ class App extends Component {
             newProps.dispatch(getTemplates(newProps.token));
             newProps.dispatch(initRequestCompleted());
         }
+
+        return null;
     }
 
     render() {
