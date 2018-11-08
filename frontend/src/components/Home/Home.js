@@ -20,6 +20,17 @@ class Home extends React.Component {
         };
     }
 
+    static getDerivedStateFromProps(newProps, previousState) {
+        if (newProps.createdTemplate && previousState.expectCreatedTemplate) {
+            return {
+                selectedTemplate: newProps.createdTemplate,
+                expectCreatedTemplate: false
+            }
+        }
+
+        return null;
+    } 
+
     selectTemplate = (template) => {
         this.setState({
             selectedTemplate: template,
@@ -40,7 +51,8 @@ class Home extends React.Component {
         this.props.dispatch(createTemplate(template, this.props.token));
 
         this.setState({
-            formMode: false
+            formMode: false,
+            expectCreatedTemplate: true
         });
     }
 
@@ -97,7 +109,8 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
         username: state.login.username,
-        token: state.login.token
+        token: state.login.token,
+        createdTemplate: state.templates.createdTemplate
     }
 }
 

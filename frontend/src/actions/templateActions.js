@@ -83,7 +83,9 @@ export function createTemplate(template, token) {
                 dispatch(getTechnologies(token));
                 dispatch(getTemplates(token));
 
-                dispatch(createTemplateSuccess());
+                response.json().then((data) => {
+                    dispatch(createTemplateSuccess(data.createdTemplate));
+                });
             } else {
                 console.error(response);
                 dispatch(createTemplateFailed("Failed to create template"));
@@ -180,9 +182,10 @@ export function getTemplatesFailed(error) {
     }
 }
 
-export function createTemplateSuccess() {
+export function createTemplateSuccess(createdTemplate) {
     return {
-        type: CREATE_TEMPLATE_SUCCESS
+        type: CREATE_TEMPLATE_SUCCESS,
+        createdTemplate: createdTemplate
     }
 }
 

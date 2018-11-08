@@ -112,8 +112,11 @@ router.post(templatesPath, function (req, res) {
         if (err) {
             return res.status(409).json(createResponse("Failed to create template: " + err));
         }
+
+        let response = successResponse;
+        response["createdTemplate"] = template
         
-        return res.status(200).json(successResponse);
+        return res.status(200).json(response);
     });
 });
 

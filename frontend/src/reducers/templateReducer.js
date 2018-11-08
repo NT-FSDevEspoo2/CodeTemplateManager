@@ -50,7 +50,8 @@ function templateReducer(state = initialState, action) {
         case CREATE_TEMPLATE_SUCCESS:
             newState = {
                 ...state,
-                error: null
+                error: null,
+                createdTemplate: action.createdTemplate
             }
 
             return newState;
