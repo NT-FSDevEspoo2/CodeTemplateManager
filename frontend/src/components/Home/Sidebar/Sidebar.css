@@ -1,13 +1,16 @@
 .sidebar {
     color: white;
-    width: 300px;
+    width: 317px;
     background-color: #555555;
     height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
     float: left;
 }
 
 .sidebar-title {
     text-align: center;
+    width: 300px;
     font-size: 20px;
     margin-top: 5px;
     cursor: pointer;
