@@ -11,7 +11,7 @@ export default class Template extends React.Component {
         super(props);
 
         this.defaultState = {
-            id: "",
+            _id: "",
             name: "",
             technology: "",
             code: "",
@@ -23,9 +23,9 @@ export default class Template extends React.Component {
 
     static getDerivedStateFromProps(newProps, previousState) {
         let selectedTemplate = newProps.selectedTemplate;
-        if (selectedTemplate && previousState.id !== selectedTemplate._id) {
+        if (selectedTemplate && previousState._id !== selectedTemplate._id) {
             return {
-                id: selectedTemplate._id,
+                _id: selectedTemplate._id,
                 name: selectedTemplate.name,
                 technology: selectedTemplate.technology,
                 code: selectedTemplate.code,
@@ -34,9 +34,9 @@ export default class Template extends React.Component {
             }
         }
 
-        if (!selectedTemplate && previousState.id) {
+        if (!selectedTemplate && previousState._id) {
             return {
-                id: "",
+                _id: "",
                 name: "",
                 technology: "",
                 code: "",
@@ -60,7 +60,7 @@ export default class Template extends React.Component {
     confirmAction = () => {
         // Create template object
         let template = {
-            id: this.state.id,
+            _id: this.state._id,
             name: this.state.name,
             technology: this.state.technology,
             code: this.state.code,
