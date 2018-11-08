@@ -109,7 +109,7 @@ export default class Template extends React.Component {
                             text={this.state.code}
                             onCopy={() => this.setState({copied: true})}
                         >
-                            <button className="normal-button">Copy</button>
+                            <button className="normal-button unselectable">Copy</button>
                         </CopyToClipboard>
                         <div className="copied-text">{this.state.copied ? "Copied" : ""}</div>
                     </div>
@@ -138,8 +138,8 @@ export default class Template extends React.Component {
 
             formControls = (
                 <div>
-                    <input type="button" className="normal-button" value={confirmButtonValue} onClick={() => this.confirmAction()}/>
-                    <input type="button" className="normal-button" value="Cancel" onClick={this.cancelAction}/>
+                    <input type="button" className="normal-button unselectable" value={confirmButtonValue} onClick={() => this.confirmAction()}/>
+                    <input type="button" className="normal-button unselectable" value="Cancel" onClick={this.cancelAction}/>
                 </div>
             );
         }
