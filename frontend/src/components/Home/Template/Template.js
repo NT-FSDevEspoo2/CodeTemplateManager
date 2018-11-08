@@ -119,8 +119,8 @@ export default class Template extends React.Component {
 
             formControls = (
                 <div>
-                    <input type="button" value={confirmButtonValue} onClick={() => this.confirmAction()}/>
-                    <input type="button" value="Cancel" onClick={this.cancelAction}/>
+                    <input type="button" className="normal-button" value={confirmButtonValue} onClick={() => this.confirmAction()}/>
+                    <input type="button" className="normal-button" value="Cancel" onClick={this.cancelAction}/>
                 </div>
             );
         }

@@ -90,7 +90,7 @@ class Home extends React.Component {
                     editTemplate={this.editTemplate}
                 />
 
-                <input type="button" className="logout-button" value="Log out" onClick={this.logout}/>
+                <input type="button" className="logout-button normal-button" value="Log out" onClick={this.logout}/>
             </div>
         );
     }
