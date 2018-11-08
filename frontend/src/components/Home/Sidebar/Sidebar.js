@@ -15,21 +15,14 @@ class Sidebar extends React.Component {
         }
     }
 
-    static getDerivedStateFromProps(newProps, previousState) {
-        let selectedTechnologies = previousState.selectedTechnologies;
-        if (newProps.createdTemplate) {
-            let technology = newProps.createdTemplate.technology;
-
-            if (!selectedTechnologies.includes(technology)) {
-                selectedTechnologies.push(technology);
-            }
-            return {
-                selectedTechnologies: selectedTechnologies
+    componentDidUpdate(previousProps) {
+        if (this.props.createdTemplate !== previousProps.createdTemplate) {
+            let technology = this.props.createdTemplate.technology;
+            if (!this.state.selectedTechnologies.includes(technology)) {
+                this.selectTechnology(this.props.createdTemplate.technology);
             }
         }
-
-        return null;
-    } 
+    }
 
     selectTechnology = (technology) => {
         let selectedTechnologies = this.state.selectedTechnologies;
