@@ -42,8 +42,6 @@ class Home extends React.Component {
         this.setState({
             formMode: false
         });
-
-        this.selectTemplate(template);
     }
 
     editTemplate = (template) => {
