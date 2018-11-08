@@ -8,3 +8,9 @@
     margin-top: 13px;
     margin-left: 3px;
 }
+
+.copied-text {
+    margin-top: 7px;
+    font-size: 18px;
+    float: left;
+}

@@ -3,6 +3,7 @@ import React from 'react';
 import './Template.css';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default class Template extends React.Component {
 
@@ -28,7 +29,8 @@ export default class Template extends React.Component {
                 name: selectedTemplate.name,
                 technology: selectedTemplate.technology,
                 code: selectedTemplate.code,
-                parameters: selectedTemplate.parameters
+                parameters: selectedTemplate.parameters,
+                copied: false
             }
         }
 
@@ -38,7 +40,8 @@ export default class Template extends React.Component {
                 name: "",
                 technology: "",
                 code: "",
-                parameters: []
+                parameters: [],
+                copied: false
             }
         }
 
@@ -93,9 +96,25 @@ export default class Template extends React.Component {
 
         let code = this.state.code;
 
+        let copyToClipboardButton = null;
+
         let codeElement = null;
         if (selectedTemplate && selectedTemplate.code) {
             codeElement = <SyntaxHighlighter language='javascript' className="code">{code}</SyntaxHighlighter>;
+        
+            if (!this.props.formMode) {
+                copyToClipboardButton = (
+                    <div>
+                        <CopyToClipboard
+                            text={this.state.code}
+                            onCopy={() => this.setState({copied: true})}
+                        >
+                            <button className="normal-button">Copy</button>
+                        </CopyToClipboard>
+                        <div className="copied-text">{this.state.copied ? "Copied" : ""}</div>
+                    </div>
+                );
+            }
         }
 
         let formControls = null;
@@ -130,6 +149,7 @@ export default class Template extends React.Component {
                 <div>{templateNameElement}</div>
                 <div>{templateTechnologyElement}</div>
                 <div>{codeElement}</div>
+                {copyToClipboardButton}
                 <div>{formControls}</div>
             </div>
         );
