@@ -1,10 +1,13 @@
 import React from 'react';
 
+import './Home.css';
+
 import Sidebar from './Sidebar/Sidebar';
 import Template from './Template/Template';
 import { connect } from 'react-redux';
 
-import { createTemplate, editTemplate, removeTemplate } from '../actions/templateActions';
+import { createTemplate, editTemplate, removeTemplate } from '../../actions/templateActions';
+import { onLogout } from '../../actions/loginActions';
 
 class Home extends React.Component {
 
@@ -63,6 +66,10 @@ class Home extends React.Component {
         this.selectTemplate(null);
     }
 
+    logout = () => {
+        this.props.dispatch(onLogout(this.props.token));
+    }
+
     render() {
         return (
             <div>
@@ -82,6 +89,8 @@ class Home extends React.Component {
                     createTemplate={this.createTemplate}
                     editTemplate={this.editTemplate}
                 />
+
+                <input type="button" className="logout-button" value="Log out" onClick={this.logout}/>
             </div>
         );
     }

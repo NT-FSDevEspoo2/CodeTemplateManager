@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
-import Home from './Home';
+import Home from './Home/Home';
 
 export default class Main extends React.Component {
 
