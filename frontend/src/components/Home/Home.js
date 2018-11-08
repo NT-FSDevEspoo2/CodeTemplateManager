@@ -20,16 +20,11 @@ class Home extends React.Component {
         };
     }
 
-    static getDerivedStateFromProps(newProps, previousState) {
-        if (newProps.createdTemplate && previousState.expectCreatedTemplate) {
-            return {
-                selectedTemplate: newProps.createdTemplate,
-                expectCreatedTemplate: false
-            }
+    componentDidUpdate(previousProps) {
+        if (this.props.createdTemplate !== previousProps.createdTemplate) {
+            this.selectTemplate(this.props.createdTemplate);
         }
-
-        return null;
-    } 
+    }
 
     selectTemplate = (template) => {
         this.setState({
@@ -51,8 +46,7 @@ class Home extends React.Component {
         this.props.dispatch(createTemplate(template, this.props.token));
 
         this.setState({
-            formMode: false,
-            expectCreatedTemplate: true
+            formMode: false
         });
     }
 
