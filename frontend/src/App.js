@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Main from './components/Main';
 
 import { getTechnologies, getTemplates } from './actions/templateActions';
+import { initRequestCompleted } from './actions/loginActions';
 
 class App extends Component {
 
@@ -14,6 +15,14 @@ class App extends Component {
         if (this.props.isLogged) {
             this.props.dispatch(getTechnologies(this.props.token));
             this.props.dispatch(getTemplates(this.props.token));
+        }
+    }
+
+    static getDerivedStateFromProps(newProps, previousState) {
+        if (newProps.initRequested) {
+            newProps.dispatch(getTechnologies(newProps.token));
+            newProps.dispatch(getTemplates(newProps.token));
+            newProps.dispatch(initRequestCompleted());
         }
     }
 
@@ -32,7 +41,8 @@ const mapStateToProps = (state) => {
     return {
         isLogged: state.login.isLogged,
         username: state.login.username,
-        token: state.login.token
+        token: state.login.token,
+        initRequested: state.login.initRequested
     }
 }
 

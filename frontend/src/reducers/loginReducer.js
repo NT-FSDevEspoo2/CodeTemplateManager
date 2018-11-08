@@ -5,13 +5,15 @@ import {
     LOGIN_FAILED,
     LOGOUT_SUCCESS,
     LOGOUT_FAILED,
+    INIT_REQUEST_COMPLETE
 } from '../actions/loginActions';
 
 const initialState = {
     username: sessionStorage.getItem("username"),
     token: sessionStorage.getItem("token"),
     isLogged: sessionStorage.getItem("isLogged") === "true",
-    error: null
+    error: null,
+    initRequested: false
 }
 
 function loginReducer(state = initialState, action) {
@@ -37,7 +39,8 @@ function loginReducer(state = initialState, action) {
                 error: null,
                 isLogged: true,
                 username: action.username,
-                token: action.token
+                token: action.token,
+                initRequested: true
             }
 
             return newState;
@@ -62,6 +65,13 @@ function loginReducer(state = initialState, action) {
             newState = {
                 ...state,
                 error: action.error
+            }
+
+            return newState;
+        case INIT_REQUEST_COMPLETE:
+            newState = {
+                ...state,
+                initRequested: false
             }
 
             return newState;

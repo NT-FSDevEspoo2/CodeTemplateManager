@@ -6,6 +6,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILED = "LOGOUT_FAILED";
+export const INIT_REQUEST_COMPLETE = "INIT_REQUEST_COMPLETE";
 
 // Actions
 
@@ -137,5 +138,11 @@ export function logoutFailed(error) {
     return {
         type: LOGOUT_FAILED,
         error: error
+    }
+}
+
+export function initRequestCompleted() {
+    return {
+        type: INIT_REQUEST_COMPLETE
     }
 }
