@@ -97,19 +97,19 @@ class Sidebar extends React.Component {
         let removeButton = null;
         if (this.props.selectedTemplate) {
             editButton = (
-                <div className={formModeButtonClassName}
+                <button className={formModeButtonClassName}
                     onClick={() => this.props.setFormMode(true, this.props.selectedTemplate)}
                 >
                     <span className="sidebar-control-button-text unselectable">Edit</span>
-                </div>
+                </button>
             );
 
             removeButton = (
-                <div className={formModeButtonClassName}
+                <button className={formModeButtonClassName}
                     onClick={() => this.props.removeTemplate(this.props.selectedTemplate._id)}
                 >
                     <span className="sidebar-control-button-text unselectable">Remove</span>
-                </div>
+                </button>
             );
         }
 
@@ -118,11 +118,11 @@ class Sidebar extends React.Component {
                 <div className="sidebar-title" onClick={() => this.props.selectTemplate(null)}>Code Templates</div>
 
                 <div className="sidebar-controls">
-                    <div className={formModeButtonClassName}
+                    <button className={formModeButtonClassName}
                         onClick={() => this.props.setFormMode(true, null)}
                     >
                         <span className="sidebar-control-button-text unselectable">Create</span>
-                    </div>
+                    </button>
                     {editButton}
                     {removeButton}
                 </div>

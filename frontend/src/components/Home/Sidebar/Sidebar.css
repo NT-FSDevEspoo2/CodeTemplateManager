@@ -50,13 +50,14 @@
 
 .sidebar-control-button {
     margin-right: 12px;
-    width: 62px;
+    width: 81px;
     background-color: #777777;
-    padding: 5px 10px 5px 10px;
-    height: 60px;
+    color: white;
+    height: 56px;
     border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
+    border: none;
     float: left;
 }
 
@@ -81,7 +82,7 @@
 }
 
 .sidebar-control-button-text {
-    margin-top: 16px;
+    margin-top: 1px;
     width: 100%;
     text-align: center;
     float: left;
