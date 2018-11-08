@@ -15,6 +15,22 @@ class Sidebar extends React.Component {
         }
     }
 
+    static getDerivedStateFromProps(newProps, previousState) {
+        let selectedTechnologies = previousState.selectedTechnologies;
+        if (newProps.createdTemplate) {
+            let technology = newProps.createdTemplate.technology;
+
+            if (!selectedTechnologies.includes(technology)) {
+                selectedTechnologies.push(technology);
+            }
+            return {
+                selectedTechnologies: selectedTechnologies
+            }
+        }
+
+        return null;
+    } 
+
     selectTechnology = (technology) => {
         let selectedTechnologies = this.state.selectedTechnologies;
 
@@ -162,7 +178,8 @@ class Sidebar extends React.Component {
 const mapStateToProps = (state) => {
     return {
         technologies: state.templates.technologies,
-        templates: state.templates.templates
+        templates: state.templates.templates,
+        createdTemplate: state.templates.createdTemplate
     }
 }
 
