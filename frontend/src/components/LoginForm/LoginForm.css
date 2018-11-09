@@ -9,6 +9,10 @@
     margin-bottom: 10px;
 }
 
+.login-form {
+    display: inline-block;
+}
+
 .login-label {
     width: 100px;
     display: block;

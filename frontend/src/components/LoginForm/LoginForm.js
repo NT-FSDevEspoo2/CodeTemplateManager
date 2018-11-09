@@ -55,7 +55,7 @@ class LoginForm extends React.Component {
         return (
             <div className="login">
                 <div className="login-title">Login</div>
-                <Form>
+                <Form className="login-form">
                     <Form.Field>
                         <label className="login-label">Username: </label>
                         <input
@@ -80,9 +80,17 @@ class LoginForm extends React.Component {
                     <Button className="normal-button login-button" onClick={this.onSubmit} name="login">Login</Button>
                     <Button className="normal-button login-button" onClick={this.onSubmit} name="register">Register</Button>
                 </Form>
+
+                <div className="error-message">{this.props.error}</div>
             </div>
         );
     }
 }
 
-export default connect()(LoginForm);
+const mapStateToProps = (state) => {
+    return {
+        error: state.login.error
+    }
+}
+
+export default connect(mapStateToProps)(LoginForm);

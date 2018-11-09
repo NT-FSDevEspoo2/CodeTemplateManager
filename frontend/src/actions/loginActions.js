@@ -15,22 +15,28 @@ export function onRegister(user) {
         let requestObject = {
             method: "POST",
             mode: "cors",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
             body: JSON.stringify(user)
         }
         return fetch("/register", requestObject).then((response) => {
             if (response.ok) {
                 dispatch(registerSuccess());
             } else if (response.status === 409) {
-                console.error(response);
                 dispatch(registerFailed("Username already exists"));
             } else {
-                console.error(response);
-                dispatch(registerFailed("Register failed"));
+                response.json().then((error) => {
+                    dispatch(registerFailed("Register failed: " + error.message));
+                }).catch((error) => {
+                    dispatch(registerFailed("Register failed: Connection error"));
+                });
+            
             }
         }).catch((error) => {
             console.error(error);
-            dispatch(registerFailed("Register failed"));
+            dispatch(registerFailed("Register failed: Connection error"));
         });
     }
 }
@@ -55,15 +61,16 @@ export function onLogin(user) {
 
                     dispatch(loginSuccess(user.username, data.token));
                 });
-            } else if (response.status === 403) {
-                dispatch(loginFailed("Wrong username or password"));
             } else {
-                console.error(response);
-                dispatch(loginFailed("Login failed"));
+                response.json().then((error) => {
+                    dispatch(loginFailed("Login failed: " + error.message));
+                }).catch((error) => {
+                    dispatch(loginFailed("Login failed: Connection error"));
+                });
             }
         }).catch((error) => {
             console.error(error);
-            dispatch(loginFailed("Login failed"));
+            dispatch(loginFailed("Login failed: Connection error"));
         });
     }
 }
@@ -85,15 +92,16 @@ export function onLogout(token) {
                 sessionStorage.setItem("username", null);
 
                 dispatch(logoutSuccess());
-            } else if (response.status === 404) {
-                dispatch(logoutFailed("Not logged in"));
             } else {
-                console.error(response);
-                dispatch(logoutFailed("Logout failed"));
+                response.json().then((error) => {
+                    dispatch(logoutFailed("Logout failed: " + error.message));
+                }).catch((error) => {
+                    dispatch(logoutFailed("Logout failed: Connection error"));
+                });
             }
         }).catch((error) => {
             console.error(error);
-            dispatch(logoutFailed("Logout failed"));
+            dispatch(logoutFailed("Logout failed: Connection error"));
         });
     }
 }
